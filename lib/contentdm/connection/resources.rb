@@ -5,7 +5,14 @@ module ContentDM
   module Connection
     module Resources
       def collections
-        fetch(:collections)
+        all_collections = fetch(:collections)
+        if all_collections.nil?
+          []
+        else
+          all_collections.collect do |collection|
+            ContentDM::Collection.from_rest_hash(collection)
+          end
+        end
       end
 
       private
@@ -20,13 +27,12 @@ module ContentDM
           
           method.to_s + '/' + Digest::SHA1.hexdigest(key_text)
         end
-      
+
         def fetch(method, params = {})
-          value = cache.get(cache_key(method, params))
-          return value unless value.nil?
+          value = cache.get(cache_key(method, params)) if cache_enabled?
+          value ||= send("fetch_#{method}", params)
           
-          value = send("fetch_#{method}".to_sym, params)
-          cache.set(value)
+          cache.set(value) if cache_enabled?
           JSON.parse(value)
         end
     end

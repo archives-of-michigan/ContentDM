@@ -35,6 +35,12 @@ describe ContentDM::Connection::Resources do
       
       @resources.collections
     end
+    it 'should return an array of Collection objects' do
+      @resources.stub!(:fetch).and_return([{}, {}])
+      @resources.collections.each do |collection|
+        collection.should be_a_kind_of(ContentDM::Collection)
+      end
+    end
   end
   
   describe "cache_key" do
@@ -51,7 +57,7 @@ describe ContentDM::Connection::Resources do
   describe "fetch" do
     it "should load the data from cache if caching is enabled and cache contains data" do
       @resources.stub!(:cache_enabled?).and_return(true)
-      @resources.cache.should_receive(:get).and_return({ 'test' => 'data' })
+      @resources.cache.should_receive(:get).and_return("{ \"test\": \"data\" }")
       
       @resources.fetch(:collections)
     end

@@ -1,5 +1,5 @@
 require 'curb-fu'
-require 'memcache'
+require 'uri'
 
 module ContentDM
   module Connection
@@ -9,8 +9,18 @@ module ContentDM
       end
       
       module InstanceMethods
-        def collections
+        def fetch_collections(params = nil)
+          request('collections.php')
+        end
+        
+        def request(*args)
+          response = CurbFu.get(:host => host, :path => path_for(*args))
           
+          if response.success?
+            response.body
+          else
+            raise ContentDM::Connection::Failed
+          end
         end
       end
     end
