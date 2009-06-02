@@ -4,12 +4,13 @@ class RestServer
   def call(env)
     response = Rack::Response.new
     
+    status, body = [404, "No route matches #{env['PATH_INFO']}"]
     if env['PATH_INFO'] =~ /collections.php$/
       status, body = [200, collections]
     end
     
     response.status = status
-    response.body = body
+    response.body << body
     
     response.finish
   end

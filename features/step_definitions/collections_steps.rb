@@ -4,5 +4,9 @@ When /^I request all collections$/ do
 end
 
 Then /^I should have the full list of collections$/ do
-  @collections.should == CurbFu.stubs['example.com'].app.collections
+  @collections.should be_a_kind_of(Array)
+  @collections.length.should == 13
+  @collections.each do |collection|
+    collection.should be_a_kind_of(ContentDM::Collection)
+  end
 end
