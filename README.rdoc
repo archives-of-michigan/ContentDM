@@ -1,0 +1,32 @@
+= ContentDM
+
+* http://github.com/dkastner/contentdm
+* http://wiki.github.com/dkastner/contentdm
+
+== PREREQUISITES:
+
+* curb-fu gem
+* curb gem
+* libcurl development library
+
+== DESCRIPTION:
+
+Client for ContentDM JSON web service (and eventually a ContentDM scraper...)
+
+An API for the ContentDM JSON RESTful web service available at http://github.com/dkastner/contentdm_rest
+
+== FEATURES:
+
+* Fetch Collections (all or individual), compound items (coming soon), and standard items.
+* Fullly object-oriented interface
+
+== INSTALL:
+
+  gem install contentdm
+
+== USAGE:
+
+ contentdm = ContentDM.connect('example.com', 'cdm_rest')
+ contentdm.collections.each do |collection|
+   puts "Name: #{collection.name}, Alias: #{collection.alias}"
+ end
