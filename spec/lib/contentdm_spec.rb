@@ -6,9 +6,4 @@ describe ContentDM do
     
     ContentDM.connect('www.example.com', '/custom/cdm_rest', :rest)
   end
-  it "should set the connection attribute to a new instance of ContentDM::Connection::Base" do
-    cdm = ContentDM.connect('www.example.com', '/custom/cdm_rest', :rest)
-    
-    cdm.connection.should be_a_kind_of(ContentDM::Connection::Base)
-  end
 end
