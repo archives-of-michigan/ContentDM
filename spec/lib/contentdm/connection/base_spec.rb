@@ -17,6 +17,17 @@ describe ContentDM::Connection::Base do
     end
   end
   
+  describe "cache_enabled?" do
+    it "should return true if we have a reference to a cache object" do
+      @connection.cache = mock(Object)
+      @connection.should be_cache_enabled
+    end
+    it "should return false if the cache is nil" do
+      @connection.cache = nil
+      @connection.should_not be_cache_enabled
+    end
+  end
+  
   describe "path_for" do
     it "should prepend the root_path if specified and prepend a slash if none is provided" do
       @connection.root_path = 'cdm_rest'

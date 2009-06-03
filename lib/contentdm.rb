@@ -7,8 +7,8 @@ require 'contentdm/connection'
 
 module ContentDM
   class << self
-    def connect(host, root_path, type = :rest)
-      ContentDM::Connection::Base.new(host, root_path, type)
+    def connect(host, root_path, type = :rest, cache = nil)
+      ContentDM::Connection::Base.new(host, root_path, type, cache)
     end
   end
 end

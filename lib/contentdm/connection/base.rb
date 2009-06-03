@@ -5,23 +5,20 @@ module ContentDM
     class Base
       include ContentDM::Connection::Resources
       
-      attr_accessor :host, :root_path
+      attr_accessor :host, :root_path, :cache
       
-      def initialize(host, root_path = nil, type = :rest, cache_enabled = false)
+      def initialize(host, root_path = nil, type = :rest, cache = nil)
         case type
         when :rest then
           self.class.rest(host, root_path)
         end
         self.host = host
         self.root_path = root_path
-        self.cache_enabled = cache_enabled
+        self.cache = cache
       end
       
-      def cache_enabled=(val)
-        @cache_enabled = val
-      end
       def cache_enabled?
-        @cache_enabled
+        !self.cache.nil?
       end
       
       class << self
