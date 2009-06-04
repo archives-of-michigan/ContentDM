@@ -5,6 +5,6 @@ namespace :gem do
   
   task :reset => 'gem:build' do
     puts `gem uninstall -a contentdm`
-    puts `gem install contentdm`
+    puts `gem install ./`
   end
 end
