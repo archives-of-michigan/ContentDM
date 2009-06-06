@@ -13,8 +13,12 @@ module ContentDM
           request('collections.php')
         end
         
-        def request(*args)
-          response = CurbFu.get(:host => host, :path => path_for(*args))
+        def fetch_collection(c_alias = '')
+          request('collections.php', :alias => c_alias)
+        end
+        
+        def request(path, params = {})
+          response = CurbFu.get({ :host => host, :path => path_for(path) }, params)
           
           if response.success?
             response.body

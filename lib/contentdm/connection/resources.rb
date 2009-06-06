@@ -14,6 +14,10 @@ module ContentDM
           end
         end
       end
+      
+      def collection(c_alias)
+        fetch(:collection, :alias => c_alias)
+      end
 
       private
         def cache_key(method, params = nil)
@@ -21,7 +25,7 @@ module ContentDM
           
           unless params.nil?
             key_text += params.keys.sort.inject('') do |text, name|
-              text += "&#{name}=#{params[text]}"
+              text += "&#{name}=#{params[name]}"
             end
           end
           
