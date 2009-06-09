@@ -4,13 +4,25 @@ module ContentDM
   module Test
     class RestServer
       def call(env)
+        request = Rack::Request.new(env)
         response = Rack::Response.new
     
         status, body = [404, "No route matches #{env['PATH_INFO']}"]
         if env['PATH_INFO'] =~ /collections.php$/
-          status, body = [200, collections]
+          if request['alias'].nil?
+            status, body = [200, collections]
+          else
+            c_alias = (request['alias'].is_a? Hash) ? request['alias']['alias'] : c_alias
+            puts "Looking for collection #{c_alias}"
+            collection = all_collections.find { |c| c['alias'].gsub(/^\//,'') == c_alias.gsub(/^\//,'') }
+            if collection
+              status, body = [200, collection.to_json]
+            else
+              status, body = [404, '{}']
+            end
+          end
         end
-    
+      
         response.status = status
         response.body << body
     
