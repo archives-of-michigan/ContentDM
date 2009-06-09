@@ -3,7 +3,7 @@ require 'rake'
 spec = Gem::Specification.new do |s|
   s.platform  =   Gem::Platform::RUBY
   s.name      =   "contentdm"
-  s.version   =   "0.2.0"
+  s.version   =   "0.2.1"
   s.author    =   "Derek Kastner"
   s.email     =   "dkastner@gmail.com"
   s.summary   =   "Interface with ContentDM content management system"
