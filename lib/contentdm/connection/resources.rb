@@ -39,10 +39,11 @@ module ContentDM
 
         def fetch(method, params = {})
           value = nil
-          value = cache.read(cache_key(method, params)) if cache_enabled?
+          key = cache_key(method, params)
+          value = cache.read(key) if cache_enabled?
           if value.nil?
             value = send("fetch_#{method}", params)
-            cache.write(cache_key(method, params), value) if cache_enabled?
+            cache.write(key, value) if cache_enabled?
           end
           
           JSON.parse(value)
