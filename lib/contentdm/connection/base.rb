@@ -11,6 +11,8 @@ module ContentDM
         case type
         when :rest then
           self.class.rest(host, root_path)
+        when :ajaj then
+          self.class.ajaj(host, root_path)
         end
         self.host = host
         self.root_path = root_path
@@ -25,6 +27,10 @@ module ContentDM
         def rest(host, root_path = nil)
           self.extend(ContentDM::Connection::REST::ClassMethods)
           self.send(:include, ContentDM::Connection::REST::InstanceMethods)
+        end
+        def ajaj(host, root_path = nil)
+          self.extend(ContentDM::Connection::AJAJ::ClassMethods)
+          self.send(:include, ContentDM::Connection::AJAJ::InstanceMethods)
         end
       end
       

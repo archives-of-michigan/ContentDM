@@ -1,5 +1,6 @@
 require 'contentdm/connection/base'
 require 'contentdm/connection/rest'
+require 'contentdm/connection/ajaj'
 
 module ContentDM
   module Connection
