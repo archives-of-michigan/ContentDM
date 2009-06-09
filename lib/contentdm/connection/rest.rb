@@ -22,6 +22,8 @@ module ContentDM
           
           if response.success?
             response.body
+          elsif response.is_a?(CurbFu::Response::NotFound)
+            raise ContentDM::Connection::NotFound
           else
             raise ContentDM::Connection::Failed
           end
