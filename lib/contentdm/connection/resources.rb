@@ -16,7 +16,12 @@ module ContentDM
       end
       
       def collection(c_alias)
-        fetch(:collection, :alias => c_alias)
+        collection = fetch(:collection, :alias => c_alias)
+        if !collection.nil?
+          ContentDM::Collection.from_rest_hash(collection)
+        else
+          nil
+        end
       end
 
       private
