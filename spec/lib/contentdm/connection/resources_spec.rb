@@ -49,10 +49,14 @@ describe ContentDM::Connection::Resources do
   
   describe "cache_key" do
     it 'should return a key for just a method name' do
+      Digest::SHA1.stub!(:hexdigest).and_return('cd3f66e2f09f1685d1e2a95a5acd9be8f1aca97a')
+      
       @resources.cache_key(:method_name).
         should == 'method_name/cd3f66e2f09f1685d1e2a95a5acd9be8f1aca97a'
     end
     it 'should return a key for a method and its parameters' do
+      Digest::SHA1.stub!(:hexdigest).and_return('76a4ebd2a0b4bfb6274af1992f8c30106a42f882')
+      
       @resources.cache_key(:method_name, 'color' => 'red', 'weight' => '2231').
         should == 'method_name/76a4ebd2a0b4bfb6274af1992f8c30106a42f882'
     end
