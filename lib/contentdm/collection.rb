@@ -9,7 +9,7 @@ module ContentDM
     end
     
     class << self
-      def from_rest_hash(hash)
+      def from_hash(hash)
         collection = self.new
         collection.name = hash['name']
         collection.alias = hash['alias']

@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe ContentDM::Collection do
-  describe "from_rest_hash" do
+  describe "from_hash" do
     it 'should convert a hash retrieved from the REST interface into a Collection' do
-      collection = ContentDM::Collection.from_rest_hash({
+      collection = ContentDM::Collection.from_hash({
         "alias" => "/p4006coll3",
         "name" => "Civil War Photographs",
         "path" => "D:\\Sites\\129401\\Data\\p4006coll3"
