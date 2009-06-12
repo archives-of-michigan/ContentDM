@@ -3,6 +3,8 @@ require 'contentdm/connection/resources'
 module ContentDM
   module Connection
     class Base
+      class InvalidConnectionType < StandardError; end
+      
       include ContentDM::Connection::Resources
       
       attr_accessor :host, :root_path, :cache
@@ -13,6 +15,8 @@ module ContentDM
           self.class.rest(host, root_path)
         when :ajaj then
           self.class.ajaj(host, root_path)
+        else
+          raise InvalidConnectionType
         end
         self.host = host
         self.root_path = root_path
