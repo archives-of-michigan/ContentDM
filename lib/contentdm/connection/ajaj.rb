@@ -1,5 +1,6 @@
 require 'curb-fu'
 require 'uri'
+require 'json'
 
 module ContentDM
   module Connection
@@ -23,7 +24,7 @@ module ContentDM
         
         def request(command, params = {})
           all_params = { 'command' => command }
-          all_params.merge('params' => params.to_json)
+          all_params.merge!('params' => params.to_json) unless params.empty?
           response = CurbFu.post({ :host => host, :path => path_for('cdm_server.php') }, all_params)
           
           if response.success?
