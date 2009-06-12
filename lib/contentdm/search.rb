@@ -1,5 +1,7 @@
 module ContentDM
   class Search
+    class CollectionsRequired < StandardError; end
+    
     attr_accessor :collections, :sortby, :fields, 
       :search_strings, :maxrecs, :start
     
@@ -22,7 +24,11 @@ module ContentDM
     
     def hash_for_remote
       hash = {}
-      hash['alias'] = collections
+      if collections
+        hash['alias'] = collections.map { |c| c !~ /^\// ? "/#{c}" : c }
+      else
+        raise CollectionsRequired, "You must specify at least one collection to search"
+      end
       hash['searchstring'] = search_strings unless search_strings.nil?
       hash['field'] = fields
       hash['sortby'] = sortby
