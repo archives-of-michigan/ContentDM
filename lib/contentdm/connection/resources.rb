@@ -10,7 +10,7 @@ module ContentDM
           []
         else
           all_collections.collect do |collection|
-            ContentDM::Collection.from_rest_hash(collection)
+            ContentDM::Collection.from_hash(collection)
           end
         end
       end
@@ -18,10 +18,15 @@ module ContentDM
       def collection(c_alias)
         collection = fetch(:collection, :alias => c_alias)
         if !collection.nil?
-          ContentDM::Collection.from_rest_hash(collection)
+          ContentDM::Collection.from_hash(collection)
         else
           nil
         end
+      end
+      
+      def search(params)
+        items = fetch(:search, params)
+        items.collect { |i| ContentDM::Item.from_hash(i) }
       end
 
       private

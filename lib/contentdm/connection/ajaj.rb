@@ -17,6 +17,10 @@ module ContentDM
           request('collection_info', :alias => c_alias)
         end
         
+        def fetch_search(params = {})
+          request('dmQuery', params)
+        end
+        
         def request(command, params = {})
           all_params = { 'command' => command }
           all_params.merge('params' => params.to_json)

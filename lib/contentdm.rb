@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'contentdm/collection'
 require 'contentdm/item'
 require 'contentdm/compound_item'
+require 'contentdm/search'
 require 'contentdm/connection'
 
 module ContentDM
